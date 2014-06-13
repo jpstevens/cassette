@@ -1,6 +1,6 @@
 {
   "name": "cassette",
-  "version": "0.0.0",
+  "version": "0.0.0-1",
   "description": "Awesome front-end components, from Funding Circle",
   "main": "dist/cassette.js",
   "scripts": {
