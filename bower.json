@@ -1,0 +1,25 @@
+{
+  "name": "cassette",
+  "version": "0.0.0",
+  "main": ["cassette.js", "cassette.css"],
+  "authors": [
+    "Jack Stevens <jack.stevens@fundingcircle.com>"
+  ],
+  "description": "Awesome front-end components, from Funding Circle",
+  "license": "MIT",
+  "homepage": "https://github.com/jpstevens/cassette",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "src",
+    "Gruntfile.js",
+    ".gitignore",
+    ".travil.yml",
+    "package.json"
+  ],
+  "dependencies": {
+    "angular": "~1.2.17"
+  }
+}
