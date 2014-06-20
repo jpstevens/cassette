@@ -67,9 +67,7 @@ To test javascript functionality only:
 
 ```bash
 grunt test:js # all javascript tests
-# or...
 grunt test:js:unit # all javascript unit tests
-# or...
 grunt test:js:e2e # all javascript e2e tests
 ```
 
