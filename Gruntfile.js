@@ -137,6 +137,7 @@ module.exports = function(grunt) {
 
   // server
   grunt.registerTask('server:dev', ['connect:dev']);
+  grunt.registerTask('server', ['server:dev']);
 
   // build
   grunt.registerTask('build:css', ['copy:css', 'sass', 'concat:css', 'cssmin', 'clean:tmp']);
