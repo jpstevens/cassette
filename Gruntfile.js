@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     clean: {
       tmp: ['.tmp'],
-      dist: ['dist/<%= pkg.name %>.*']
+      dist: ['dist']
     },
     mochaTest: {
       js: {
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
+      files: ['Gruntfile.js', 'src/scripts/*.js', 'test/**/*.js'],
       options: {
         globals: {
           angular: true,
@@ -93,6 +93,16 @@ module.exports = function(grunt) {
           cwd: 'src/',
           src: ['styles/**/*.css'],
           dest: '.tmp/',
+          filter: 'isFile'
+        }]
+      },
+      fonts: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'src/',
+          src: ['fonts/**/*.{eot,svg,ttf,woff,otf}'],
+          dest: 'dist/',
           filter: 'isFile'
         }]
       }
@@ -157,12 +167,13 @@ module.exports = function(grunt) {
 
   // server
   grunt.registerTask('server:dev', ['connect:dev']);
-  grunt.registerTask('server', ['server:dev']);
+  grunt.registerTask('server', ['server:dev']); // sets default server
 
   // build
+  grunt.registerTask('build:fonts', ['copy:fonts']);
   grunt.registerTask('build:css', ['copy:css', 'sass', 'concat:css', 'cssmin', 'clean:tmp']);
   grunt.registerTask('build:js', ['jshint', 'concat:js', 'uglify']);
-  grunt.registerTask('build', ['clean', 'build:js', 'build:css']);
+  grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:fonts']);
   
   // test
   grunt.registerTask('test:js:e2e', ['protractor']);
