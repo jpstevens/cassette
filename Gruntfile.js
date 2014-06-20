@@ -95,6 +95,26 @@ module.exports = function(grunt) {
           dest: '.tmp/',
           filter: 'isFile'
         }]
+      },
+      img: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'src/',
+          src: ['images/**/*.*'],
+          dest: 'dist',
+          filter: 'isFile'
+        }]
+      }
+    },
+    imagemin: {
+      build: {
+        files: [{
+          expand: true,
+          cwd: 'dist/',
+          src: "<%= copy.img.files[0].src %>",
+          dest: 'dist/'
+        }]
       }
     },
     sass: {
@@ -150,6 +170,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -160,9 +181,10 @@ module.exports = function(grunt) {
   grunt.registerTask('server', ['server:dev']);
 
   // build
+  grunt.registerTask('build:img', ['copy:img', 'imagemin']);
   grunt.registerTask('build:css', ['copy:css', 'sass', 'concat:css', 'cssmin', 'clean:tmp']);
   grunt.registerTask('build:js', ['jshint', 'concat:js', 'uglify']);
-  grunt.registerTask('build', ['clean', 'build:js', 'build:css']);
+  grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:img']);
   
   // test
   grunt.registerTask('test:js:e2e', ['protractor']);
