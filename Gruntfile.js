@@ -15,6 +15,24 @@ module.exports = function(grunt) {
         src: ['tests/**/*-spec.js']
       }
     },
+    protractor: {
+      options: {
+        keepAlive: false,
+        noColor: false
+      },
+      e2e: {
+        configFile: "./protractor.conf.js",
+        args: {}
+      }
+    },
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        runnerPort: 9999,
+        singleRun: true,
+        browsers: ['PhantomJS']
+      }
+    },
     jshint: {
       files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
       options: {
@@ -126,6 +144,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -145,7 +165,9 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['clean', 'build:js', 'build:css']);
   
   // test
-  grunt.registerTask('test:js', ['mochaTest']);
+  grunt.registerTask('test:js:e2e', ['protractor']);
+  grunt.registerTask('test:js:unit', ['karma']);
+  grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
   grunt.registerTask('test', ['test:js']);
   
   // deploy
