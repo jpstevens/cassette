@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -31,16 +31,8 @@ module.exports = function(grunt) {
         singleRun: true
       }
     },
-    jshint: {
-      files: ['Gruntfile.js', 'src/scripts/**/*.js', 'test/**/*.js'],
-      options: {
-        globals: {
-          angular: true,
-          console: true,
-          module: true,
-          exports: true
-        }
-      }
+    jslint: {
+      src: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
     },
     watch: {
       js: {
@@ -175,9 +167,9 @@ module.exports = function(grunt) {
       }
     }
   });
-  
+
   // dependencies
-  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-jslint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-karma');
@@ -201,7 +193,11 @@ module.exports = function(grunt) {
   grunt.registerTask('build:img', ['copy:img', 'imagemin']);
   grunt.registerTask('build:css', ['copy:css', 'sass', 'concat:css', 'cssmin', 'clean:tmp']);
   grunt.registerTask('build:js', ['jshint', 'concat:js', 'uglify']);
+<<<<<<< HEAD
   grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:fonts', 'build:img']);
+=======
+  grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:img']);
+>>>>>>> Added jslint support
 
   // test
   grunt.registerTask('test:css', []);
@@ -209,8 +205,13 @@ module.exports = function(grunt) {
   grunt.registerTask('test:js:unit', ['karma']);
   // grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
   grunt.registerTask('test:js', ['test:js:unit']);
+<<<<<<< HEAD
   grunt.registerTask('test', ['test:js', 'test:css']);
   
+=======
+  grunt.registerTask('test', ['test:js']);
+
+>>>>>>> Added jslint support
   // deploy
   grunt.registerTask('deploy:local', ['test', 'build']);
   grunt.registerTask('deploy:patch', ['deploy:local', 'bump:patch']);
@@ -218,7 +219,7 @@ module.exports = function(grunt) {
   grunt.registerTask('deploy:major', ['deploy:local', 'bump:major']);
   grunt.registerTask('deploy:build', ['deploy:local', 'bump:build']);
   grunt.registerTask('deploy', ['deploy:build']);
-  
+
   // default
   grunt.registerTask('default', ['test', 'build']);
 };
