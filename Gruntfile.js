@@ -49,9 +49,17 @@ module.exports = function(grunt) {
         files: ['<%= jshint.files %>'],
         tasks: ['build:js', 'test:js']
       },
-      scss: {
-        files: ['src/styles/**/*.scss'],
-        tasks: ['build:css']
+      css: {
+        files: ['src/styles/**/*.{scss,css,sass}'],
+        tasks: ['build:css', 'test:css']
+      },
+      img: {
+        files: ['src/images/**/*'],
+        tasks: ['build:img']
+      },
+      fonts: {
+        files: ['src/fonts/**/*'],
+        tasks: ['build:fonts']
       }
     },
     concat: {
@@ -195,14 +203,15 @@ module.exports = function(grunt) {
   grunt.registerTask('build:img', ['copy:img', 'imagemin']);
   grunt.registerTask('build:css', ['copy:css', 'sass', 'concat:css', 'cssmin', 'clean:tmp']);
   grunt.registerTask('build:js', ['jshint', 'concat:js', 'uglify']);
-  grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:fonts']);
+  grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:fonts', 'build:img']);
 
   // test
+  grunt.registerTask('test:css', []);
   grunt.registerTask('test:js:e2e', ['protractor']);
   grunt.registerTask('test:js:unit', ['karma']);
   // grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
   grunt.registerTask('test:js', ['test:js:unit']);
-  grunt.registerTask('test', ['test:js']);
+  grunt.registerTask('test', ['test:js', 'test:css']);
   
   // deploy
   grunt.registerTask('deploy:local', ['test', 'build']);
