@@ -167,7 +167,8 @@ module.exports = function(grunt) {
   // test
   grunt.registerTask('test:js:e2e', ['protractor']);
   grunt.registerTask('test:js:unit', ['karma']);
-  grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
+  // grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
+  grunt.registerTask('test:js', ['test:js:unit']);
   grunt.registerTask('test', ['test:js']);
   
   // deploy
