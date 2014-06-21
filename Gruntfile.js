@@ -34,6 +34,35 @@ module.exports = function (grunt) {
     jslint: {
       src: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
     },
+    protractor: {
+      options: {
+        keepAlive: false,
+        noColor: false
+      },
+      e2e: {
+        configFile: "./protractor.conf.js",
+        args: {}
+      }
+    },
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        runnerPort: 9999,
+        singleRun: true,
+        browsers: ['PhantomJS']
+      }
+    },
+    jshint: {
+      files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
+      options: {
+        globals: {
+          angular: true,
+          console: true,
+          module: true,
+          exports: true
+        }
+      }
+    },
     watch: {
       js: {
         files: ['<%= jshint.files %>'],
@@ -192,12 +221,8 @@ module.exports = function (grunt) {
   grunt.registerTask('build:fonts', ['copy:fonts']);
   grunt.registerTask('build:img', ['copy:img', 'imagemin']);
   grunt.registerTask('build:css', ['copy:css', 'sass', 'concat:css', 'cssmin', 'clean:tmp']);
-  grunt.registerTask('build:js', ['jshint', 'concat:js', 'uglify']);
-<<<<<<< HEAD
+  grunt.registerTask('build:js', ['jslint', 'concat:js', 'uglify']);
   grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:fonts', 'build:img']);
-=======
-  grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:img']);
->>>>>>> Added jslint support
 
   // test
   grunt.registerTask('test:css', []);
@@ -205,13 +230,8 @@ module.exports = function (grunt) {
   grunt.registerTask('test:js:unit', ['karma']);
   // grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
   grunt.registerTask('test:js', ['test:js:unit']);
-<<<<<<< HEAD
   grunt.registerTask('test', ['test:js', 'test:css']);
-  
-=======
-  grunt.registerTask('test', ['test:js']);
 
->>>>>>> Added jslint support
   // deploy
   grunt.registerTask('deploy:local', ['test', 'build']);
   grunt.registerTask('deploy:patch', ['deploy:local', 'bump:patch']);
