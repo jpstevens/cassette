@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     clean: {
       tmp: ['.tmp'],
-      dist: ['dist/<%= pkg.name %>.*']
+      dist: ['dist']
     },
     mochaTest: {
       js: {
@@ -28,13 +28,11 @@ module.exports = function(grunt) {
     karma: {
       unit: {
         configFile: 'karma.conf.js',
-        runnerPort: 9999,
-        singleRun: true,
-        browsers: ['PhantomJS']
+        singleRun: true
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
+      files: ['Gruntfile.js', 'src/scripts/**/*.js', 'test/**/*.js'],
       options: {
         globals: {
           angular: true,
@@ -49,9 +47,17 @@ module.exports = function(grunt) {
         files: ['<%= jshint.files %>'],
         tasks: ['build:js', 'test:js']
       },
-      scss: {
-        files: ['src/styles/**/*.scss'],
-        tasks: ['build:css']
+      css: {
+        files: ['src/styles/**/*.{scss,css,sass}'],
+        tasks: ['build:css', 'test:css']
+      },
+      img: {
+        files: ['src/images/**/*'],
+        tasks: ['build:img']
+      },
+      fonts: {
+        files: ['src/fonts/**/*'],
+        tasks: ['build:fonts']
       }
     },
     concat: {
@@ -93,6 +99,16 @@ module.exports = function(grunt) {
           cwd: 'src/',
           src: ['styles/**/*.css'],
           dest: '.tmp/',
+          filter: 'isFile'
+        }]
+      },
+      fonts: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'src/',
+          src: ['fonts/**/*.{eot,svg,ttf,woff,otf}'],
+          dest: 'dist/',
           filter: 'isFile'
         }]
       },
@@ -178,20 +194,22 @@ module.exports = function(grunt) {
 
   // server
   grunt.registerTask('server:dev', ['connect:dev']);
-  grunt.registerTask('server', ['server:dev']);
+  grunt.registerTask('server', ['server:dev']); // sets default server
 
   // build
+  grunt.registerTask('build:fonts', ['copy:fonts']);
   grunt.registerTask('build:img', ['copy:img', 'imagemin']);
   grunt.registerTask('build:css', ['copy:css', 'sass', 'concat:css', 'cssmin', 'clean:tmp']);
   grunt.registerTask('build:js', ['jshint', 'concat:js', 'uglify']);
-  grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:img']);
-  
+  grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:fonts', 'build:img']);
+
   // test
+  grunt.registerTask('test:css', []);
   grunt.registerTask('test:js:e2e', ['protractor']);
   grunt.registerTask('test:js:unit', ['karma']);
   // grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
   grunt.registerTask('test:js', ['test:js:unit']);
-  grunt.registerTask('test', ['test:js']);
+  grunt.registerTask('test', ['test:js', 'test:css']);
   
   // deploy
   grunt.registerTask('deploy:local', ['test', 'build']);

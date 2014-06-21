@@ -4,11 +4,12 @@ module.exports = function(config) {
     files: [
       './bower_components/angular/angular.js',
       './bower_components/angular-mocks/angular-mocks.js',
-      './src/**/*.js',
+      './src/scripts/**/*.js',
       './tests/unit/**/*-spec.js'
     ],
     autoWatch: true,
     autoWatchBatchDelay: 1000,
+    runnerPort: 9999,
     frameworks: ['jasmine'],
     browsers: ['PhantomJS'],
     plugins: [
