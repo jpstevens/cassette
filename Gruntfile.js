@@ -28,13 +28,11 @@ module.exports = function(grunt) {
     karma: {
       unit: {
         configFile: 'karma.conf.js',
-        runnerPort: 9999,
-        singleRun: true,
-        browsers: ['PhantomJS']
+        singleRun: true
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'src/scripts/*.js', 'test/**/*.js'],
+      files: ['Gruntfile.js', 'src/scripts/**/*.js', 'test/**/*.js'],
       options: {
         globals: {
           angular: true,
