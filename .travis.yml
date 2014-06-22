@@ -11,3 +11,5 @@ before_script:
   - grunt build
 script: 
   - grunt test
+env:
+  secure: "T/LUu1vqouo9cONBC6IS7ti1bz5+NrWwEH+5NQGyCjnbQrE2OHqCDSJUL55+ynPMtI1GBe3/2HItl9fZDN4pYXnT9z67l55G7dcKPWD78hzQ91FgIgCb5oNGmU2s/94MgcEAT6z6C+octnAh+uYo2n2M05m1VXQ8ul+Ho7M6huU="

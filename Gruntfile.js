@@ -90,13 +90,13 @@
                 },
                 dev: {
                     options: {
-                        port: 9101,
+                        port: (process.env.PORT || 9101),
                         livereload: true
                     }
                 },
                 test: {
                     options: {
-                        port: 9199,
+                        port: (process.env.PORT || 9199),
                         livereload: false
                     }
                 }
@@ -237,11 +237,11 @@
         grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:img', 'build:fonts']);
 
         // test
+        grunt.registerTask('test:css', []);
         grunt.registerTask('test:js:e2e', ['server:test', 'protractor']);
         grunt.registerTask('test:js:unit', ['karma']);
-        // grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
-        grunt.registerTask('test:js', ['test:js:unit']);
-        grunt.registerTask('test', ['test:js']);
+        grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
+        grunt.registerTask('test', ['test:js', 'test:css']);
 
         // deploy
         grunt.registerTask('deploy:local', ['test', 'build']);

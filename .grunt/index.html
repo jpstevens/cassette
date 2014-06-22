@@ -5,11 +5,17 @@
   <!-- endbower -->
   <link rel="stylesheet" type="text/css" href="/<%= component.name %>.css">
 </head>
-<body>
-  <h1><%= component.name %> <small>(<%= component.version %>)</small></h2>
-  <p><%= component.description %></p>
-<!-- bower:js -->
-<!-- endbower -->
-<script src="/<%= component.name %>.js"></script>
+<body ng-app ng-cloak>
+  <header>
+    <h1><%= component.name %> <small>(<%= component.version %>)</small></h2>
+    <p><%= component.description %></p>
+  </header>
+  <div class="protractor-test">
+    <input type="text" ng-model="testingStatus">
+    <p>Testing status: {{ testingStatus || 'offline' }}</p>
+  </div>
+  <!-- bower:js -->
+  <!-- endbower -->
+  <script src="/<%= component.name %>.js"></script>
 </body>
 </html>
