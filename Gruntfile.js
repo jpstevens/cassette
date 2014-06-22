@@ -72,26 +72,30 @@ module.exports = function (grunt) {
             fonts: {
                 files: ['fonts/**/*.{eot,svg,ttf,woff,otf}'],
                 tasks: ['build:fonts']
+            },
+            preview: {
+                files: ['Gruntfile.js', 'package.json', 'bower.json', '.grunt/*'],
+                tasks: ['copy:preview', 'wiredep:preview']
             }
         },
         express: {
-            dev: {
+            preview: {
                 options: {
                     port: 9101,
                     hostname: 'localhost',
-                    bases: ['.tmp', 'dist'],
+                    bases: ['.tmp', 'dist', 'bower_components'],
                     livereload: true
                 }
             }
         },
         open: {
             all: {
-                path: 'http://localhost:<%= express.dev.options.port%>'
+                path: 'http://localhost:<%= express.preview.options.port%>'
             }
         },
         concat: {
             js: {
-                src: ['src/**.js', 'src/**/*.js'],
+                src: ['src/scripts/**.js', 'src/scripts/**/*.js'],
                 dest: 'dist/<%= pkg.name %>.js',
                 options: {
                     separator: ';'
@@ -150,6 +154,22 @@ module.exports = function (grunt) {
                     dest: 'dist/',
                     filter: 'isFile'
                 }]
+            },
+            preview: {
+                files: [{
+                    expand: true,
+                    flatten: false,
+                    cwd: '.grunt/',
+                    src: ['*'],
+                    dest: '.tmp/',
+                    filter: 'isFile'
+                }]
+            }
+        },
+        wiredep: {
+            preview: {
+                src: ['.tmp/**/*.html'],
+                ignorePath: './bower_components'
             }
         },
         imagemin: {
@@ -192,8 +212,7 @@ module.exports = function (grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     // server
-    grunt.registerTask('server:dev', ['build', 'express:dev', 'open', 'watch']);
-    grunt.registerTask('server', ['server:dev']);
+    grunt.registerTask('server', ['build', 'copy:preview', 'wiredep:preview', 'express:preview', 'open', 'watch']);
 
     // build
     grunt.registerTask('build:fonts', ['copy:fonts']);

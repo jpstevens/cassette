@@ -39,6 +39,7 @@
     "grunt-mocha-test": "^0.11.0",
     "grunt-open": "^0.2.3",
     "matchdep": "^0.3.0",
-    "grunt-express": "^1.4.0"
+    "grunt-express": "^1.4.0",
+    "grunt-wiredep": "^1.8.0"
   }
 }
