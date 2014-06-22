@@ -1,3 +1,4 @@
+
 module.exports = function (grunt) {
 
     'use strict';
@@ -6,7 +7,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         clean: {
             tmp: ['.tmp'],
-            dist: ['dist/<%= pkg.name %>.*']
+            dist: ['dist']
         },
         mochaTest: {
             js: {
@@ -28,8 +29,9 @@ module.exports = function (grunt) {
             node: {
                 src: ['Gruntfile.js', 'test/**/*.js'],
                 directives: {
+                    node: true,
                     browser: false,
-                    predef: ['module', 'console', 'require']
+                    nomen: true
                 }
             }
         },
@@ -51,25 +53,40 @@ module.exports = function (grunt) {
                 browsers: ['PhantomJS']
             }
         },
-        jshint: {
-            files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
+        watch: {
             options: {
-                globals: {
-                    angular: true,
-                    console: true,
-                    module: true,
-                    exports: true
+                livereload: true
+            },
+            js: {
+                files: ['src/scripts/**/*.js'],
+                tasks: ['build:js', 'test:js']
+            },
+            css: {
+                files: ['src/styles/**/*.{scss,sass,css}'],
+                tasks: ['build:css', 'test:css']
+            },
+            img: {
+                files: ['src/images/**/*'],
+                tasks: ['build:img']
+            },
+            fonts: {
+                files: ['fonts/**/*.{eot,svg,ttf,woff,otf}'],
+                tasks: ['build:fonts']
+            }
+        },
+        express: {
+            dev: {
+                options: {
+                    port: 9101,
+                    hostname: 'localhost',
+                    bases: ['.tmp', 'dist'],
+                    livereload: true
                 }
             }
         },
-        watch: {
-            js: {
-                files: ['<%= jshint.files %>'],
-                tasks: ['build:js', 'test:js']
-            },
-            scss: {
-                files: ['src/styles/**/*.scss'],
-                tasks: ['build:css']
+        open: {
+            all: {
+                path: 'http://localhost:<%= express.dev.options.port%>'
             }
         },
         concat: {
@@ -119,8 +136,18 @@ module.exports = function (grunt) {
                     expand: true,
                     flatten: false,
                     cwd: 'src/',
-                    src: ['images/**/*.*'],
+                    src: ['images/**/*'],
                     dest: 'dist',
+                    filter: 'isFile'
+                }]
+            },
+            fonts: {
+                files: [{
+                    expand: true,
+                    flatten: false,
+                    cwd: 'src/',
+                    src: ['fonts/**/*.{eot,svg,ttf,woff,otf}'],
+                    dest: 'dist/',
                     filter: 'isFile'
                 }]
             }
@@ -145,23 +172,6 @@ module.exports = function (grunt) {
                 ext: '.css'
             }
         },
-        connect: {
-            options: {
-                port: 10001,
-                hostname: 'localhost'
-            },
-            dev: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            connect.static(require('path').resolve('.')),
-                            connect.static(require('path').resolve('tests/manual'))
-                        ];
-                    },
-                    keepalive: true
-                }
-            }
-        },
         bump: {
             options: {
                 files: ['package.json', 'bower.json'],
@@ -182,14 +192,15 @@ module.exports = function (grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     // server
-    grunt.registerTask('server:dev', ['connect:dev']);
+    grunt.registerTask('server:dev', ['build', 'express:dev', 'open', 'watch']);
     grunt.registerTask('server', ['server:dev']);
 
     // build
+    grunt.registerTask('build:fonts', ['copy:fonts']);
     grunt.registerTask('build:img', ['copy:img', 'imagemin']);
     grunt.registerTask('build:css', ['copy:css', 'sass', 'concat:css', 'cssmin', 'clean:tmp']);
     grunt.registerTask('build:js', ['jslint', 'concat:js', 'uglify']);
-    grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:img']);
+    grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:img', 'build:fonts']);
 
     // test
     grunt.registerTask('test:js:e2e', ['protractor']);
