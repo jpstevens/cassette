@@ -1,13 +1,15 @@
 <html>
 <head>
-  <title>cassette-seed</title>
+  <title><%= component.name %>@<%= component.version %></title>
   <!-- bower:css -->
   <!-- endbower -->
-  <link rel="stylesheet" type="text/css" href="/cassette.css">
+  <link rel="stylesheet" type="text/css" href="/<%= component.name %>.css">
 </head>
 <body>
+  <h1><%= component.name %> <small>(<%= component.version %>)</small></h2>
+  <p><%= component.description %></p>
 <!-- bower:js -->
 <!-- endbower -->
-<script src="/cassette.js"></script>
+<script src="/<%= component.name %>.js"></script>
 </body>
 </html>
