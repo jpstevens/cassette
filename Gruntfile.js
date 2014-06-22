@@ -19,7 +19,7 @@ module.exports = function (grunt) {
         },
         jslint: {
             browser: {
-                src: ['src/**/*.js'],
+                src: ['src/scripts/**/*.js'],
                 directives: {
                     browser: true,
                     predef: ['console', 'angular']
