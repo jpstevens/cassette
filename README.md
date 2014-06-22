@@ -9,7 +9,7 @@ Awesome front-end components, from Funding Circle
 Clone the Cassettes repo from Github:
 
 ```bash
-git clone https://github.com/jpstevens/cassette
+git clone https://github.com/jpstevens/cassette-seed
 ```
 
 Then install the dependencies:
@@ -23,6 +23,18 @@ Finally, run the Grunt task to test and build the project:
 ```bash
 grunt
 ```
+
+## Preview/Development:
+
+To preview your project, run:
+
+```bash
+grunt server
+```
+
+This will open up a new browser window, with an auto-generated preview of your project.
+
+The page will auto-update as you make changes to your project.
 
 ## Scripts:
 
@@ -89,3 +101,19 @@ grunt.registerTask('test:js:unit', ['mochaTest']); // for Mocha
 grunt.registerTask('test:js:unit', ['karma']); // for Jasmine (with Karma)
 ```
 
+## Deploying:
+
+To release a new version of the package, use the command:
+
+```bash
+grunt deploy
+```
+
+This will increase your project's version (build) number, tag your latest commit with that version, then push to your project's git repository, as specified with 'origin'.
+
+## TODO:
+
+- implement test:js:e2e so that tests pass on CI
+- link protractor tests to the preview server, so that the preview server runs before protractor
+- inject directives into the preview file, using ```<!-- cassette:directive -->``` or ```<!-- cassette:directive:[name-goes-here] -->```
+- put seed project into an angular generator
