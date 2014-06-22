@@ -120,6 +120,7 @@ This will increase your project's version (build) number, tag your latest commit
 ## TODO:
 
 - implement test:js:e2e so that tests pass on CI
-- link protractor tests to the preview server, so that the preview server runs before protractor
-- inject directives into the preview file, using ```<!-- cassette:directive -->``` or ```<!-- cassette:directive:[name-goes-here] -->```
-- put seed project into an angular generator
+- link Protractor tests to the preview server, so that it runs tests against the local ```server:test```
+- inject directives into the preview ```.grunt/index.html``` file, using ```<!-- cassette:directive -->``` or ```<!-- cassette:directive:[name-goes-here] -->```
+- put seed project into a YO generator
+- implement template cache on build for Angular directives
