@@ -1,5 +1,5 @@
 {
-  "name": "cassette",
+  "name": "cassette-seed",
   "version": "0.0.0-1",
   "description": "Awesome front-end components, from Funding Circle",
   "main": "dist/cassette.js",
@@ -40,6 +40,8 @@
     "grunt-open": "^0.2.3",
     "matchdep": "^0.3.0",
     "grunt-express": "^1.4.0",
-    "grunt-wiredep": "^1.8.0"
+    "grunt-wiredep": "^1.8.0",
+    "express": "^4.4.4",
+    "ejs": "^1.0.0"
   }
 }

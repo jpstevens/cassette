@@ -15,7 +15,13 @@ git clone https://github.com/jpstevens/cassette-seed
 Then install the dependencies:
 
 ```bash
-npm install 
+npm install && bower install
+```
+
+If you don't have SASS install, run:
+
+```bash
+bundle install
 ```
 
 Finally, run the Grunt task to test and build the project:
