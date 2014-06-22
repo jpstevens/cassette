@@ -9,7 +9,7 @@ Awesome front-end components, from Funding Circle
 Clone the Cassettes repo from Github:
 
 ```bash
-git clone https://github.com/jpstevens/cassette
+git clone https://github.com/jpstevens/cassette-seed
 ```
 
 Then install the dependencies:
