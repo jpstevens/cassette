@@ -6,7 +6,12 @@ before_install:
 install:
   - npm install
   - bower install
+  - bundle install
 before_script:
   - grunt build
 script: 
   - grunt test
+cache:
+  - npm
+  - bower
+  - bundler
