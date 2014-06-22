@@ -1,15 +1,19 @@
 language: node_js
 node_js:
-  - '0.10'
-before_install: 
-  - npm install -g grunt-cli bower
+- '0.10'
+before_install:
+- npm install -g grunt-cli bower
 install:
-  - npm install
-  - bower install
-  - bundle install
+- npm install
+- bower install
+- bundle install
 before_script:
-  - grunt build
-script: 
-  - grunt test
+- grunt build
+script:
+- grunt test
 env:
-  secure: "T/LUu1vqouo9cONBC6IS7ti1bz5+NrWwEH+5NQGyCjnbQrE2OHqCDSJUL55+ynPMtI1GBe3/2HItl9fZDN4pYXnT9z67l55G7dcKPWD78hzQ91FgIgCb5oNGmU2s/94MgcEAT6z6C+octnAh+uYo2n2M05m1VXQ8ul+Ho7M6huU="
+  global:
+  - secure: Ye5fhoHrugI9F9EWY7V1PLvRay02TtIbH55FDQdpgjI7Pg03aEja6U5TqbW7U0InRNPI6Eeh3sZAToVdmv4a0tUdlR/OAzf6gPo8cN4IwcDI2YPuoaAeGLKdb1rLZ/MtfN+Hab56RHWRgqzYsT/Cq3jrEejjRVbKyfyWlP+4I7A=
+  - secure: QUBusQJmKe0xV4IoNhbgwPII3w866QgTzFEoQUwrprCIyykobGyef5+NCDXSWRA2A3tWHg1gLVUQfHDt6SNO4vtOEITb7bzIY63vFcwZ1B8az/YRrgxZVKkOcfmLuosXq+1LQFGc7tzgrkqUb6N7SSSMmnoWgNZ3D1GFqZ2rXh4=
+addons:
+  sauce_connect: true
