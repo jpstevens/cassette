@@ -218,11 +218,25 @@
                     pushTo: 'origin',
                     gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
                 }
+            },
+            exec: {
+                webdriver: {
+                    cmd: function () {
+                        if (!process.env.TRAVIS) {
+                            return "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update";
+                        } else {
+                            return "echo '> Skipping grunt exec:webdriver";
+                        }
+                    }
+                }
             }
         });
 
         // dependencies
         require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+
+        // postinstall
+        grunt.registerTask('postinstall', 'exec:webdriver');
 
         // server
         grunt.registerTask('server:test', ['build', 'copy:server', 'wiredep:server', 'express:test']);
