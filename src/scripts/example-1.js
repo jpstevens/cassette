@@ -1,4 +1,4 @@
 (function () {
-    'use strict';
-    console.log('Cassette');
+  'use strict';
+  console.log('Cassette');
 }());

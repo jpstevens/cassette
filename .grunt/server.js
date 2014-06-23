@@ -1,27 +1,27 @@
 (function () {
 
-    'use strict';
+  'use strict';
 
-    var express, app;
+  var express, app;
 
-    express = require('express');
-    app = express();
+  express = require('express');
+  app = express();
 
-    app.engine('.html', require('ejs').__express);
-    app.set('views', __dirname);
-    app.set('view engine', 'html');
+  app.engine('.html', require('ejs').__express);
+  app.set('views', __dirname);
+  app.set('view engine', 'html');
 
-    /*jslint unparam: true*/
+  /*jslint unparam: true*/
 
-    app.get('/', function (req, res) {
-        res.render('index', {
-            pkg: require('../package.json'),
-            component: require('../bower.json')
-        });
+  app.get('/', function (req, res) {
+    res.render('index', {
+      pkg: require('../package.json'),
+      component: require('../bower.json')
     });
+  });
 
-    /*jslint unparam: false*/
+  /*jslint unparam: false*/
 
-    module.exports = app;
+  module.exports = app;
 
 }());
