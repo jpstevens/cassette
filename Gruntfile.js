@@ -222,10 +222,10 @@
             exec: {
                 webdriver: {
                     cmd: function () {
-                        if (!process.env.TRAVIS) {
-                            return "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update";
+                        if (process.env.TRAVIS) {
+                            return "echo '> Skipping grunt exec:webdriver'";
                         } else {
-                            return "echo '> Skipping grunt exec:webdriver";
+                            return "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update";
                         }
                     }
                 }
