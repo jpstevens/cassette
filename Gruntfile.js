@@ -90,13 +90,13 @@
                 },
                 dev: {
                     options: {
-                        port: 9101,
+                        port: (process.env.PORT || 9101),
                         livereload: true
                     }
                 },
                 test: {
                     options: {
-                        port: 9199,
+                        port: (process.env.PORT || 9199),
                         livereload: false
                     }
                 }
@@ -218,11 +218,24 @@
                     pushTo: 'origin',
                     gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
                 }
+            },
+            exec: {
+                webdriver: {
+                    cmd: function () {
+                        if (process.env.TRAVIS) {
+                            return "echo '> Skipping grunt exec:webdriver'";
+                        }
+                        return "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update";
+                    }
+                }
             }
         });
 
         // dependencies
         require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+
+        // postinstall
+        grunt.registerTask('postinstall', 'exec:webdriver');
 
         // server
         grunt.registerTask('server:test', ['build', 'copy:server', 'wiredep:server', 'express:test']);
@@ -237,11 +250,11 @@
         grunt.registerTask('build', ['clean', 'build:js', 'build:css', 'build:img', 'build:fonts']);
 
         // test
+        grunt.registerTask('test:css', []);
         grunt.registerTask('test:js:e2e', ['server:test', 'protractor']);
         grunt.registerTask('test:js:unit', ['karma']);
-        // grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
-        grunt.registerTask('test:js', ['test:js:unit']);
-        grunt.registerTask('test', ['test:js']);
+        grunt.registerTask('test:js', ['test:js:unit', 'test:js:e2e']);
+        grunt.registerTask('test', ['test:js', 'test:css']);
 
         // deploy
         grunt.registerTask('deploy:local', ['test', 'build']);
