@@ -224,9 +224,8 @@
                     cmd: function () {
                         if (process.env.TRAVIS) {
                             return "echo '> Skipping grunt exec:webdriver'";
-                        } else {
-                            return "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update";
                         }
+                        return "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update";
                     }
                 }
             }
