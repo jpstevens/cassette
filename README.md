@@ -1,6 +1,7 @@
 # Cassette Seed
 
 [![Build Status](https://secure.travis-ci.org/jpstevens/cassette-seed.png?branch=master)](https://travis-ci.org/jpstevens/cassette-seed)
+[![Dependency Status](https://gemnasium.com/jpstevens/cassette-seed.svg)](https://gemnasium.com/jpstevens/cassette-seed)
 
 Awesome front-end components, from Funding Circle
 
